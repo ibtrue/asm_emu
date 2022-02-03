@@ -126,37 +126,37 @@ int main()
             }
             case 00:
             {
-                vars[prog[j].res - 1000] = vars[prog[j].var1 - 1000]; //приравнивает mas[4] к mas[2] 
+                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable; //приравнивает mas[4] к mas[2] 
                 break;
             }
             case 01:
             {
-                vars[mas[4] - 1000] = vars[mas[2] - 1000] + vars[mas[3] - 1000]; //складывает mas[2] и mas[3] и записывает в mas[4]
+                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable + vars[prog[j].var2 - 1000].variable; //складывает mas[2] и mas[3] и записывает в mas[4]
                 break;
             }
             case 02:
             {
-                vars[mas[4] - 1000] = vars[mas[2] - 1000] + vars[mas[3] - 1000]; //вычитает mas[3] из mas[2] и записывает в mas[4]
+                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable + vars[prog[j].var2 - 1000].variable; //вычитает mas[3] из mas[2] и записывает в mas[4]
                 break;
             }
             case 03:
             {
-                vars[mas[4] - 1000] = vars[mas[2] - 1000] * vars[mas[3] - 1000]; //умножение НЕ ПОНЯЛ ЧЕМ ОТЛИЧЕТСЯ Б/ЗН И С/ЗН
+                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable * vars[prog[j].var2 - 1000].variable; //умножение НЕ ПОНЯЛ ЧЕМ ОТЛИЧЕТСЯ Б/ЗН И С/ЗН
                 break;
             }
             case 04:
             {
-                vars[mas[4] - 1000] = vars[mas[2] - 1000] / vars[mas[3] - 1000]; // div C/зн
+                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable / vars[prog[j].var2 - 1000].variable; // div C/зн
                 break;
             }
             case 14:
             {
-                vars[mas[4] - 1000] = vars[mas[2] - 1000] % vars[mas[3] - 1000]; // mod Б/зн
+                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable % vars[prog[j].var2 - 1000].variable; // mod Б/зн
                 break;
             }
             case 81:
             {
-                vars[mas[4] - 1000] = vars[mas[2] - 1000] % vars[mas[3] - 1000]; // mod Б/зн
+                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable % vars[prog[j].var2 - 1000].variable; // mod Б/зн
                 break;
             }
             case 95:
