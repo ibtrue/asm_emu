@@ -116,7 +116,7 @@ int main()
     for (int i = 0; i <= j; i++)
     {
         code cur;
-        int sw = mas[1];
+        int sw = prog[j].operation;
         switch (sw)
         {
             case 99:
@@ -126,7 +126,7 @@ int main()
             }
             case 00:
             {
-                vars[mas[4] - 1000] = vars[mas[2] - 1000]; //приравнивает mas[4] к mas[2] 
+                vars[prog[j].res - 1000] = vars[prog[j].var1 - 1000]; //приравнивает mas[4] к mas[2] 
                 break;
             }
             case 01:
