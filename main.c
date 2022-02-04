@@ -115,13 +115,13 @@ int main()
 
     for (int i = 0; i <= j; i++)
     {
-        code cur;
+        code cur = prog[j];
         int sw = prog[j].operation;
         switch (sw)
         {
             case 99:
             {
-                return; //return выход из программы
+                return 0; //return выход из программы
                 break;
             }
             case 00:
@@ -156,12 +156,67 @@ int main()
             }
             case 81:
             {
-                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable % vars[prog[j].var2 - 1000].variable; // mod Б/зн
-                break;
+                if (vars[prog[j].var1 - 1000].variable == vars[prog[j].var2 - 1000].variable) 
+                {
+                    cur = prog[vars[prog[j].res - 1000].variable];
+                    break;
+                }
+                else
+                {
+                    break;
+                }
             }
-            case 95:
+            case 82: //не понял что такое <>
             {
                 break;
+            }
+            case 83: 
+            {
+                if (vars[prog[j].var1 - 1000].variable < vars[prog[j].var2 - 1000].variable) 
+                {
+                    cur = prog[vars[prog[j].res - 1000].variable];
+                    break;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            case 86: 
+            {
+                if (vars[prog[j].var1 - 1000].variable <= vars[prog[j].var2 - 1000].variable) 
+                {
+                    cur = prog[vars[prog[j].res - 1000].variable];
+                    break;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            case 85: 
+            {
+                if (vars[prog[j].var1 - 1000].variable > vars[prog[j].var2 - 1000].variable) 
+                {
+                    cur = prog[vars[prog[j].res - 1000].variable];
+                    break;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            case 84: 
+            {
+                if (vars[prog[j].var1 - 1000].variable >= vars[prog[j].var2 - 1000].variable) 
+                {
+                    cur = prog[vars[prog[j].res - 1000].variable];
+                    break;
+                }
+                else
+                {
+                    break;
+                }
             }
         }
     }
