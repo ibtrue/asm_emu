@@ -20,6 +20,14 @@ struct Code
 typedef struct Data data;
 typedef struct Code code;
 
+long int HEXtoDEC(char* str)
+{
+    char *next = NULL;
+    long int value = strtol(str, &next, 16);
+
+    return (int)value;
+}
+
 int charcmp(char s1, char s2)
 {
     return (s1 == s2) ? 0 : 1;
@@ -83,40 +91,45 @@ int main()
     {
         fgets(str, 100, fp);
         char** res = split(str);
-        i = atoi(res[0]) - 1000;
-        vars[i].variable = atoi(res[1]);
+        i = HEXtoDEC(res[0]) - HEXtoDEC("1000");
+        vars[i].variable = HEXtoDEC(res[1]);
     }
 
     /**
      * @brief переменная, которая сначала счетчик для создания массива структур, потом - количество строк в программе - 1
      * 
      */
-    int j = 0;
+    int amo_commands = 0;
 
     // Поменять индексы. (Случай когда они идут не по порядку) ((Поставить в зависимость от memory_cell))
+    // DONE!!!!
 
     while (!feof(fp)) // Разбивает на массив структур (prog) всё тело программы i - остаток от ячейки памяти -2000
     {
         fgets(str, 100, fp);
         char** res = split(str);
         int* mas = (int*)malloc(sizeof(int) * 5);
+        int cur_ind = 0;
         
         for (int i = 0; i < 5; i++)
         {
-            mas[i] = atoi(res[i]);
+            mas[i] = HEXtoDEC(res[i]);
         }
-        prog[i].memory_cell = mas[0];
-        prog[i].operation = mas[1];
-        prog[i].var1 = mas[2];
-        prog[i].var2 = mas[3];
-        prog[i].res = mas[4];
-        j++;
+
+        cur_ind = mas[0] - HEXtoDEC("2000");
+
+        prog[cur_ind].memory_cell = mas[0];
+        prog[cur_ind].operation = mas[1];
+        prog[cur_ind].var1 = mas[2];
+        prog[cur_ind].var2 = mas[3];
+        prog[cur_ind].res = mas[4];
+        amo_commands++;
     }
 
-    for (int i = 0; i <= j; i++)
+    for (int i = 0; i <= amo_commands; i++)
     {
-        code cur = prog[j];
-        int sw = prog[j].operation;
+        code cur = prog[i];
+        int sw = prog[i].operation;
         switch (sw)
         {
             case 99:
@@ -126,39 +139,39 @@ int main()
             }
             case 00:
             {
-                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable; //приравнивает mas[4] к mas[2] 
+                vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable; //приравнивает mas[4] к mas[2] 
                 break;
             }
             case 01:
             {
-                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable + vars[prog[j].var2 - 1000].variable; //складывает mas[2] и mas[3] и записывает в mas[4]
+                vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable + vars[prog[i].var2 - 4096].variable; //складывает mas[2] и mas[3] и записывает в mas[4]
                 break;
             }
             case 02:
             {
-                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable + vars[prog[j].var2 - 1000].variable; //вычитает mas[3] из mas[2] и записывает в mas[4]
+                vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable + vars[prog[i].var2 - 4096].variable; //вычитает mas[3] из mas[2] и записывает в mas[4]
                 break;
             }
             case 03:
             {
-                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable * vars[prog[j].var2 - 1000].variable; //умножение НЕ ПОНЯЛ ЧЕМ ОТЛИЧЕТСЯ Б/ЗН И С/ЗН
+                vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable * vars[prog[i].var2 - 4096].variable; //умножение НЕ ПОНЯЛ ЧЕМ ОТЛИЧЕТСЯ Б/ЗН И С/ЗН
                 break;
             }
             case 04:
             {
-                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable / vars[prog[j].var2 - 1000].variable; // div C/зн
+                vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable / vars[prog[i].var2 - 4096].variable; // div C/зн
                 break;
             }
             case 14:
             {
-                vars[prog[j].res - 1000].variable = vars[prog[j].var1 - 1000].variable % vars[prog[j].var2 - 1000].variable; // mod Б/зн
+                vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable % vars[prog[i].var2 - 4096].variable; // mod Б/зн
                 break;
             }
             case 81:
             {
-                if (vars[prog[j].var1 - 1000].variable == vars[prog[j].var2 - 1000].variable) 
+                if (vars[prog[i].var1 - 4096].variable == vars[prog[i].var2 - 4096].variable) 
                 {
-                    cur = prog[vars[prog[j].res - 1000].variable];
+                    cur = prog[vars[prog[i].res - 4096].variable];
                     break;
                 }
                 else
@@ -166,15 +179,23 @@ int main()
                     break;
                 }
             }
-            case 82: //не понял что такое <>
+            case 82: //не понял что такое <> // Это значит не равно. (аналог !=)
             {
-                break;
+                if (vars[prog[i].var1 - 4096].variable != vars[prog[i].var2 - 4096].variable) 
+                {
+                    cur = prog[vars[prog[i].res - 4096].variable];
+                    break;
+                }
+                else
+                {
+                    break;
+                }
             }
             case 83: 
             {
-                if (vars[prog[j].var1 - 1000].variable < vars[prog[j].var2 - 1000].variable) 
+                if (vars[prog[i].var1 - 4096].variable < vars[prog[i].var2 - 4096].variable) 
                 {
-                    cur = prog[vars[prog[j].res - 1000].variable];
+                    cur = prog[vars[prog[i].res - 4096].variable];
                     break;
                 }
                 else
@@ -184,9 +205,9 @@ int main()
             }
             case 86: 
             {
-                if (vars[prog[j].var1 - 1000].variable <= vars[prog[j].var2 - 1000].variable) 
+                if (vars[prog[i].var1 - 4096].variable <= vars[prog[i].var2 - 4096].variable) 
                 {
-                    cur = prog[vars[prog[j].res - 1000].variable];
+                    cur = prog[vars[prog[i].res - 4096].variable];
                     break;
                 }
                 else
@@ -196,9 +217,9 @@ int main()
             }
             case 85: 
             {
-                if (vars[prog[j].var1 - 1000].variable > vars[prog[j].var2 - 1000].variable) 
+                if (vars[prog[i].var1 - 4096].variable > vars[prog[i].var2 - 4096].variable) 
                 {
-                    cur = prog[vars[prog[j].res - 1000].variable];
+                    cur = prog[vars[prog[i].res - 4096].variable];
                     break;
                 }
                 else
@@ -208,9 +229,9 @@ int main()
             }
             case 84: 
             {
-                if (vars[prog[j].var1 - 1000].variable >= vars[prog[j].var2 - 1000].variable) 
+                if (vars[prog[i].var1 - 4096].variable >= vars[prog[i].var2 - 4096].variable) 
                 {
-                    cur = prog[vars[prog[j].res - 1000].variable];
+                    cur = prog[vars[prog[i].res - 4096].variable];
                     break;
                 }
                 else
