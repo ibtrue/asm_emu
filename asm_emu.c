@@ -137,3 +137,89 @@ void mod(data* vars, int arg1, int arg2, int res)
     vars[res].variable = vars[arg1].variable % vars[arg2].variable;
     return;
 }
+
+void div(data* vars, int arg1, int arg2, int res)
+{
+    vars[res].variable = vars[arg1].variable / vars[arg2].variable;
+    return;
+}
+
+int compeq(data* vars, int arg1, int arg2, int res) //comparation equal
+{
+    if (vars[arg1].variable == vars[arg2].variable)
+    {
+        return res;
+    }
+
+    else
+    {
+        return; //next idk how to code it like your idea. I think it might be memory cell number
+    }
+}
+
+int compneq(data* vars, int arg1, int arg2, int res) //comparation not equal
+{
+    if (vars[arg1].variable != vars[arg2].variable)
+    {
+        return res;
+    }
+
+    else
+    {
+        return; //next idk how to code it like your idea. I think it might be memory cell number
+    }
+}
+
+int compl(data* vars, int arg1, int arg2, int res) //comparation arg1 lower than arg2
+{
+    if (vars[arg1].variable < vars[arg2].variable)
+    {
+        return res;
+    }
+
+    else
+    {
+        return; //next idk how to code it like your idea. I think it might be memory cell number
+    }
+}
+
+int comple(data* vars, int arg1, int arg2, int res) //comparation arg1 lower or equal than arg2
+{
+    if (vars[arg1].variable <= vars[arg2].variable)
+    {
+        return res;
+    }
+
+    else
+    {
+        return; //next idk how to code it like your idea. I think it might be memory cell number
+    }
+}
+
+int comph(data* vars, int arg1, int arg2, int res) //comparation arg1 higher than arg2
+{
+    if (vars[arg1].variable > vars[arg2].variable)
+    {
+        return res;
+    }
+
+    else
+    {
+        return; //next idk how to code it like your idea. I think it might be memory cell number
+    }
+}
+
+int comphe(data* vars, int arg1, int arg2, int res) //comparation arg1 higher or equal than arg2
+{
+    if (vars[arg1].variable >= vars[arg2].variable)
+    {
+        return res;
+    }
+
+    else
+    {
+        return; //next idk how to code it like your idea. I think it might be memory cell number
+    }
+}
+
+//Ya ne viebonistiy a prosto vpadlu perekluchat' yazik :)
