@@ -1,66 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <string.h>
-
-struct Data
-{
-    int variable;
-};
-
-struct Code
-{
-    int memory_cell;
-    int operation;
-    int var1;
-    int var2;
-    int res;
-};
-
-typedef struct Data data;
-typedef struct Code code;
-
-long int HEXtoDEC(char* str)
-{
-    char *next = NULL;
-    long int value = strtol(str, &next, 16);
-
-    return (int)value;
-}
-
-int charcmp(char s1, char s2)
-{
-    return (s1 == s2) ? 0 : 1;
-}
-
-char** split(char* str)
-{
-    char ** res = (char**)malloc(sizeof(char) * 32);
-    int i = 0, j = 0;
-    for (int i = 0; i < (int)strlen(str); i++)
-    {
-        res[i] = (char*)malloc(sizeof(char) * (int)strlen(str));
-    }
-    i = 0;
-    if (!res)
-        return NULL;
-    
-    while (*str)
-    {
-        if (charcmp(*str, ' ') != 0 && charcmp(*str, '\n') != 0)
-        {
-            res[i][j] = *str;
-            j++;
-        }
-        else if (charcmp(*str, '\n') != 0)
-        {
-            j = 0;
-            i++;
-        }
-        ++str;
-    }
-    return res;
-}
+#include "asm_emu.h"
 
 int main()
 {
@@ -132,42 +70,43 @@ int main()
         int sw = prog[i].operation;
         switch (sw)
         {
-            case 99:
+            case 99: //done
             {
-                return 0; //return выход из программы
+                return_c(99);
+                return 0;
                 break;
             }
-            case 00:
+            case 00: //done
             {
                 vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable; //приравнивает mas[4] к mas[2] 
                 break;
             }
-            case 01:
+            case 01: //done
             {
                 vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable + vars[prog[i].var2 - 4096].variable; //складывает mas[2] и mas[3] и записывает в mas[4]
                 break;
             }
-            case 02:
+            case 02: //done
             {
                 vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable + vars[prog[i].var2 - 4096].variable; //вычитает mas[3] из mas[2] и записывает в mas[4]
                 break;
             }
-            case 03:
+            case 03: //done
             {
                 vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable * vars[prog[i].var2 - 4096].variable; //умножение НЕ ПОНЯЛ ЧЕМ ОТЛИЧЕТСЯ Б/ЗН И С/ЗН
                 break;
             }
-            case 04:
+            case 04: //done
             {
                 vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable / vars[prog[i].var2 - 4096].variable; // div C/зн
                 break;
             }
-            case 14:
+            case 14: //done
             {
                 vars[prog[i].res - 4096].variable = vars[prog[i].var1 - 4096].variable % vars[prog[i].var2 - 4096].variable; // mod Б/зн
                 break;
             }
-            case 81:
+            case 81: //nd
             {
                 if (vars[prog[i].var1 - 4096].variable == vars[prog[i].var2 - 4096].variable) 
                 {
@@ -179,7 +118,7 @@ int main()
                     break;
                 }
             }
-            case 82: //не понял что такое <> // Это значит не равно. (аналог !=)
+            case 82: // nd
             {
                 if (vars[prog[i].var1 - 4096].variable != vars[prog[i].var2 - 4096].variable) 
                 {
