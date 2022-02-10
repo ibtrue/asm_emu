@@ -118,7 +118,7 @@ void multy(data* vars, int arg1, int arg2, int res)
  * @param arg2 
  * @param res 
  */
-void div(data* vars, int arg1, int arg2, int res)
+void div_c(data* vars, int arg1, int arg2, int res)
 {
     vars[res].variable = vars[arg1].variable / vars[arg2].variable;
     return;
@@ -132,15 +132,9 @@ void div(data* vars, int arg1, int arg2, int res)
  * @param arg2 
  * @param res 
  */
-void mod(data* vars, int arg1, int arg2, int res)
+void mod_c(data* vars, int arg1, int arg2, int res)
 {
     vars[res].variable = vars[arg1].variable % vars[arg2].variable;
-    return;
-}
-
-void div(data* vars, int arg1, int arg2, int res)
-{
-    vars[res].variable = vars[arg1].variable / vars[arg2].variable;
     return;
 }
 
@@ -153,7 +147,7 @@ int compeq(data* vars, int arg1, int arg2, int res) //comparation equal
 
     else
     {
-        return; //next idk how to code it like your idea. I think it might be memory cell number
+        return -1; //next idk how to code it like your idea. I think it might be memory cell number
     }
 }
 
@@ -166,7 +160,7 @@ int compneq(data* vars, int arg1, int arg2, int res) //comparation not equal
 
     else
     {
-        return; //next idk how to code it like your idea. I think it might be memory cell number
+        return -1; //next idk how to code it like your idea. I think it might be memory cell number
     }
 }
 
@@ -179,7 +173,7 @@ int compl(data* vars, int arg1, int arg2, int res) //comparation arg1 lower than
 
     else
     {
-        return; //next idk how to code it like your idea. I think it might be memory cell number
+        return -1; //next idk how to code it like your idea. I think it might be memory cell number
     }
 }
 
@@ -192,7 +186,7 @@ int comple(data* vars, int arg1, int arg2, int res) //comparation arg1 lower or 
 
     else
     {
-        return; //next idk how to code it like your idea. I think it might be memory cell number
+        return -1; //next idk how to code it like your idea. I think it might be memory cell number
     }
 }
 
@@ -205,7 +199,7 @@ int comph(data* vars, int arg1, int arg2, int res) //comparation arg1 higher tha
 
     else
     {
-        return; //next idk how to code it like your idea. I think it might be memory cell number
+        return -1; //next idk how to code it like your idea. I think it might be memory cell number
     }
 }
 
@@ -218,7 +212,7 @@ int comphe(data* vars, int arg1, int arg2, int res) //comparation arg1 higher or
 
     else
     {
-        return; //next idk how to code it like your idea. I think it might be memory cell number
+        return -1; //next idk how to code it like your idea. I think it might be memory cell number
     }
 }
 
