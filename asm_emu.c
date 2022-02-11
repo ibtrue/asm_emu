@@ -216,8 +216,6 @@ int comphe(int* vars, int arg1, int arg2, int res) //comparation arg1 higher or 
     }
 }
 
-//Ya ne viebonistiy a prosto vpadlu perekluchat' yazik :)
-
 //int main()
 //{  
 //    int * vars = (int*)malloc(sizeof(int) * 100);
