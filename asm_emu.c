@@ -3,7 +3,7 @@
 long int HEXtoDEC(char* str)
 {
     char *next = NULL;
-    long int value = strtol(str, &next, 16);
+    long int value = strtol(str, &next, 10);
 
     return (int)value;
 }
@@ -59,9 +59,9 @@ void return_c()
  * @param ind_where 
  * @param ind_who 
  */
-void equating(data* vars, int ind_where, int ind_who)
+void equating(int* vars, int ind_where, int ind_who)
 {
-    vars[ind_where].variable = vars[ind_who].variable;
+    vars[ind_where] = vars[ind_who];
     return;
 }
 
@@ -74,9 +74,9 @@ void equating(data* vars, int ind_where, int ind_who)
  * @param arg2 
  * @param res 
  */
-void sum(data* vars, int arg1, int arg2, int res)
+void sum(int* vars, int arg1, int arg2, int res)
 {
-    vars[res].variable = vars[arg1].variable + vars[arg2].variable;
+    vars[res] = vars[arg1] + vars[arg2];
     return;
 }
 
@@ -89,9 +89,9 @@ void sum(data* vars, int arg1, int arg2, int res)
  * @param arg2 
  * @param res 
  */
-void subtraction(data* vars, int arg1, int arg2, int res)
+void subtraction(int* vars, int arg1, int arg2, int res)
 {
-    vars[res].variable = vars[arg1].variable - vars[arg2].variable;
+    vars[res] = vars[arg1] - vars[arg2];
     return;
 }
 
@@ -104,9 +104,9 @@ void subtraction(data* vars, int arg1, int arg2, int res)
  * @param arg2 
  * @param res 
  */
-void multy(data* vars, int arg1, int arg2, int res)
+void multy(int* vars, int arg1, int arg2, int res)
 {
-    vars[res].variable = vars[arg1].variable * vars[arg2].variable;
+    vars[res] = vars[arg1] * vars[arg2];
     return;
 }
 
@@ -118,9 +118,9 @@ void multy(data* vars, int arg1, int arg2, int res)
  * @param arg2 
  * @param res 
  */
-void div_c(data* vars, int arg1, int arg2, int res)
+void div_c(int* vars, int arg1, int arg2, int res)
 {
-    vars[res].variable = vars[arg1].variable / vars[arg2].variable;
+    vars[res] = vars[arg1] / vars[arg2];
     return;
 }
 
@@ -132,15 +132,15 @@ void div_c(data* vars, int arg1, int arg2, int res)
  * @param arg2 
  * @param res 
  */
-void mod_c(data* vars, int arg1, int arg2, int res)
+void mod_c(int* vars, int arg1, int arg2, int res)
 {
-    vars[res].variable = vars[arg1].variable % vars[arg2].variable;
+    vars[res] = vars[arg1] % vars[arg2];
     return;
 }
 
-int compeq(data* vars, int arg1, int arg2, int res) //comparation equal
+int compeq(int* vars, int arg1, int arg2, int res) //comparation equal
 {
-    if (vars[arg1].variable == vars[arg2].variable)
+    if (vars[arg1] == vars[arg2])
     {
         return res;
     }
@@ -151,9 +151,9 @@ int compeq(data* vars, int arg1, int arg2, int res) //comparation equal
     }
 }
 
-int compneq(data* vars, int arg1, int arg2, int res) //comparation not equal
+int compneq(int* vars, int arg1, int arg2, int res) //comparation not equal
 {
-    if (vars[arg1].variable != vars[arg2].variable)
+    if (vars[arg1] != vars[arg2])
     {
         return res;
     }
@@ -164,9 +164,9 @@ int compneq(data* vars, int arg1, int arg2, int res) //comparation not equal
     }
 }
 
-int compl(data* vars, int arg1, int arg2, int res) //comparation arg1 lower than arg2
+int compl(int* vars, int arg1, int arg2, int res) //comparation arg1 lower than arg2
 {
-    if (vars[arg1].variable < vars[arg2].variable)
+    if (vars[arg1] < vars[arg2])
     {
         return res;
     }
@@ -177,9 +177,9 @@ int compl(data* vars, int arg1, int arg2, int res) //comparation arg1 lower than
     }
 }
 
-int comple(data* vars, int arg1, int arg2, int res) //comparation arg1 lower or equal than arg2
+int comple(int* vars, int arg1, int arg2, int res) //comparation arg1 lower or equal than arg2
 {
-    if (vars[arg1].variable <= vars[arg2].variable)
+    if (vars[arg1] <= vars[arg2])
     {
         return res;
     }
@@ -190,9 +190,9 @@ int comple(data* vars, int arg1, int arg2, int res) //comparation arg1 lower or 
     }
 }
 
-int comph(data* vars, int arg1, int arg2, int res) //comparation arg1 higher than arg2
+int comph(int* vars, int arg1, int arg2, int res) //comparation arg1 higher than arg2
 {
-    if (vars[arg1].variable > vars[arg2].variable)
+    if (vars[arg1] > vars[arg2])
     {
         return res;
     }
@@ -203,9 +203,9 @@ int comph(data* vars, int arg1, int arg2, int res) //comparation arg1 higher tha
     }
 }
 
-int comphe(data* vars, int arg1, int arg2, int res) //comparation arg1 higher or equal than arg2
+int comphe(int* vars, int arg1, int arg2, int res) //comparation arg1 higher or equal than arg2
 {
-    if (vars[arg1].variable >= vars[arg2].variable)
+    if (vars[arg1] >= vars[arg2])
     {
         return res;
     }
@@ -217,3 +217,16 @@ int comphe(data* vars, int arg1, int arg2, int res) //comparation arg1 higher or
 }
 
 //Ya ne viebonistiy a prosto vpadlu perekluchat' yazik :)
+
+//int main()
+//{  
+//    int * vars = (int*)malloc(sizeof(int) * 100);
+//    for (int i = 0; i < 100; i++)
+//    {
+//        vars[i] = i;
+//    }
+//
+//    printf("%d\n", comphe(vars, 2, 3, 4));
+//
+//    return 0;
+//}
